@@ -1,7 +1,22 @@
 import './App.css';
+import { observer } from 'mobx-react';
+import { IntlProvider } from 'react-intl';
+import Header from './components/Header';
+import { useAppContext } from './components/hooks';
 
 function App() {
-  return <div className="App">hello world</div>;
+  const { commonStore } = useAppContext();
+
+  return (
+    <IntlProvider
+      locale={commonStore.language}
+      messages={commonStore.localMessages}>
+      <div className="App">
+        <Header></Header>
+        <main>hello world</main>
+      </div>
+    </IntlProvider>
+  );
 }
 
-export default App;
+export default observer(App);
